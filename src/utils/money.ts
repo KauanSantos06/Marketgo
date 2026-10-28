@@ -1,0 +1,4 @@
+export function roundMoney(value: number): number { return Math.round(value * 100) / 100; }
+export function formatMoney(value: number): string { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value); }
+export function parseMoney(input: string): number { const trimmed = input.trim(); if (trimmed === '') return NaN; let cleaned = trimmed.replace(/[^\d.,-]/g, ''); if (cleaned === '') return NaN; if (cleaned.includes(',')) { cleaned = cleaned.replace(/\./g, '').replace(',', '.'); } else { const parts = cleaned.split('.'); if (parts.length > 2) cleaned = parts.join(''); else if (parts.length === 2 && parts[1].length === 3) cleaned = parts.join(''); } const result = Number(cleaned); return Number.isNaN(result) ? NaN : result; }
+export function toInputMoney(value: number): string { return value.toFixed(2).replace('.', ','); }
